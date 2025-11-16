@@ -15,7 +15,7 @@ The goal is to show the structure, stages, and flow of a **reliable, testable, a
 
 Below is a conceptual overview of how the pipeline moves from code → validation → deployment → consumption.
 
-### **1. Pipeline Development (Local or in Branch)**
+## **1. Pipeline Development (Local or in Branch)**
 
 Developers update:
 
