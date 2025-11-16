@@ -1,4 +1,4 @@
-# DataOps CI/CD Example (GitHub Actions)
+# DataOps CI/CD Business Case Example
 
 A minimal, production-style example of a **DataOps CI/CD pipeline** for the Data Framework & DataOps Business Case.
 
