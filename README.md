@@ -2,8 +2,7 @@
 
 A minimal, production-style example of a **DataOps CI/CD pipeline** for the Data Framework & DataOps Business Case.
 
-<img width="977" height="557" alt="Repo image" src="https://github.com/user-attachments/assets/07cc7e00-95f6-4b60-9971-8de04217422e" />
-
+<img width="4464" height="2539" alt="BC image" src="https://github.com/user-attachments/assets/b7f5a3e6-252f-46de-8e27-c9598d131682" />
 
 ## What this repo shows
 - **Multi-env CI** (dev, stage) on pull requests and main pushes
