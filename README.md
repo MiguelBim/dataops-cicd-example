@@ -24,12 +24,6 @@ Developers update:
 - `pipeline/expectations/` – data quality checks  
 - `.github/workflows/` – CI/CD definitions  
 
-The repo enforces:
-
-- **Clear folder structure**  
-- **Modular, testable code**  
-- **Separation of logic, tests, and validations**
-
 This supports platform-wide standardization.
 
 ---
@@ -39,8 +33,6 @@ This supports platform-wide standardization.
 Every pull request automatically triggers the CI workflow.
 
 ### ✔️ Code Quality Checks
-- **Linting** (`ruff`)  
-- **Static analysis**  
 - **Unit tests** (`pytest`)
 
 👉 Ensures only clean, validated, and reliable code reaches the main branch.
@@ -69,7 +61,6 @@ When CI passes and code is merged:
 
 ### ✔️ Build & Publish Artifact
 - Packages the transformation logic  
-- Publishes a versioned build artifact  
 
 ### ✔️ Deploy to Environments
 A promotion cycle deploys to:
@@ -82,40 +73,12 @@ A promotion cycle deploys to:
 
 ---
 
-## 🔄 5. Orchestration Integration (Conceptual)
-
-Although this repo does not include a full orchestration system, the deployed artifact is compatible with:
-
-- Airflow  
-- Dagster  
-- Prefect  
-- dbt Cloud jobs  
-- Internal schedulers  
-
-👉 Schedulers execute **validated, versioned artifacts**, not ad-hoc scripts.
-
----
-
-## 📊 6. Observability & Monitoring Layer
-
-The pipeline is designed to integrate with:
-
-- Logging systems (ELK, Datadog)
-- Metrics (latency, throughput, error rate)
-- Alerting (Slack, PagerDuty)
-- Lineage tracking (OpenLineage, Marquez)
-
-👉 Enables rapid troubleshooting, governance, and compliance.
-
----
-
 # 🧩 Why This Repository Exists
 
 This repository serves as an **illustrative example** of:
 
 - How DataOps standardization looks in practice  
 - How CI/CD enforces quality and consistency  
-- How modular design creates reusable patterns across squads  
 - How platformization replaces custom one-off pipelines  
 
 It directly supports the **Data Platform Revamp** proposal as an architectural example.
@@ -125,7 +88,6 @@ It directly supports the **Data Platform Revamp** proposal as an architectural e
 # 📎 Additional Notes
 
 - This repository is intentionally lightweight.  
-- Tooling is illustrative; any data stack (Airflow, dbt, Dagster, GE, etc.) could be integrated.  
 - The purpose is conceptual clarity, not production deployment.
 
 ---
