@@ -1,0 +1,89 @@
+name: DataOps CI/CD
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  release:
+    types: [created]
+
+jobs:
+  ci:
+    name: CI (dev, stage)
+    if: github.event_name != 'release'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [dev, stage]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pipeline/requirements.txt
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Run unit tests (pytest)
+        run: pytest -q
+
+      - name: Run ETL (matrix env)
+        run: |
+          python pipeline/etl_job.py --input data/input.csv --output data/output_${{ matrix.env }}.csv --env ${{ matrix.env }}
+
+      - name: Run Data Quality (Great Expectations)
+        run: |
+          great_expectations checkpoint run simple_checkpoint
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputs-${{ matrix.env }}
+          path: |
+            data/output_${{ matrix.env }}.csv
+            great_expectations/uncommitted/data_docs/local_site/index.html
+          if-no-files-found: ignore
+
+  prod:
+    name: Promote to PROD
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    environment: prod  # require manual approval via GitHub Environments
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pipeline/requirements.txt
+
+      - name: Run full test suite
+        run: |
+          ruff check .
+          pytest -q
+          great_expectations checkpoint run simple_checkpoint
+
+      - name: Run ETL (prod)
+        env:
+          DATA_BUCKET: ${{ secrets.DATA_BUCKET }}
+        run: |
+          python pipeline/etl_job.py --input data/input.csv --output data/output_prod.csv --env prod
+
+      - name: Upload prod artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputs-prod
+          path: data/output_prod.csv

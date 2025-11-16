@@ -1,0 +1,4 @@
+pandas==2.2.2
+great_expectations==0.18.14
+pytest==8.3.2
+ruff==0.5.6
