@@ -1,6 +1,9 @@
 # DataOps CI/CD Example (GitHub Actions)
 
-A minimal, production-style example of a **DataOps CI/CD pipeline** you can fork and reference in your proposal.
+A minimal, production-style example of a **DataOps CI/CD pipeline** for the Data Framework & DataOps Business Case.
+
+<img width="977" height="557" alt="Repo image" src="https://github.com/user-attachments/assets/07cc7e00-95f6-4b60-9971-8de04217422e" />
+
 
 ## What this repo shows
 - **Multi-env CI** (dev, stage) on pull requests and main pushes
